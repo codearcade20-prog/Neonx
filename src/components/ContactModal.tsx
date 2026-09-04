@@ -1,5 +1,5 @@
 import { motion, AnimatePresence, useAnimationFrame } from 'framer-motion';
-import { X, Send, User, Mail, Phone, MessageSquare } from 'lucide-react';
+import { X, Send, User, Mail, Phone, MessageSquare, Download, Smartphone, Check } from 'lucide-react';
 import { useState, useRef, useEffect } from 'react';
 import { supabase } from '../lib/supabase';
 
@@ -11,6 +11,49 @@ interface ContactModalProps {
 export const ContactModal = ({ isOpen, onClose }: ContactModalProps) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [deferredPrompt, setDeferredPrompt] = useState<any>(null);
+  const [isInstalled, setIsInstalled] = useState(false);
+  const [installSuccess, setInstallSuccess] = useState(false);
+
+  useEffect(() => {
+    // Check if already in standalone / installed mode
+    if (window.matchMedia('(display-mode: standalone)').matches || (window.navigator as any).standalone) {
+      setIsInstalled(true);
+    }
+
+    const handleBeforeInstallPrompt = (e: Event) => {
+      e.preventDefault();
+      setDeferredPrompt(e);
+    };
+
+    const handleAppInstalled = () => {
+      setIsInstalled(true);
+      setInstallSuccess(true);
+      setDeferredPrompt(null);
+    };
+
+    window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
+    window.addEventListener('appinstalled', handleAppInstalled);
+
+    return () => {
+      window.removeEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
+      window.removeEventListener('appinstalled', handleAppInstalled);
+    };
+  }, []);
+
+  const handleInstallClick = async () => {
+    if (deferredPrompt) {
+      deferredPrompt.prompt();
+      const { outcome } = await deferredPrompt.userChoice;
+      if (outcome === 'accepted') {
+        setInstallSuccess(true);
+      }
+      setDeferredPrompt(null);
+    } else {
+      // Fallback instruction for iOS or unsupported browsers
+      alert("To install Neonx:\n\n• On iPhone / iPad: Tap the 'Share' button (⎋) in Safari and choose 'Add to Home Screen' (⊞).\n• On Android / Chrome: Tap the three dots (⋮) menu and select 'Install app' or 'Add to Home screen'.");
+    }
+  };
 
   // Tiny Racing State
   const distanceRef = useRef(0);
@@ -193,14 +236,44 @@ export const ContactModal = ({ isOpen, onClose }: ContactModalProps) => {
               <X size={24} />
             </button>
 
-            <div className="text-center mb-8 relative z-10 pointer-events-none">
+            <div className="text-center mb-6 relative z-10 pointer-events-none">
               <h2 className="text-3xl font-black text-white drop-shadow-glow mb-2">CodeArcade</h2>
-              <p className="text-neon-pink text-sm font-bold tracking-wide uppercase mb-4">Ideas & Suggestions</p>
+              <p className="text-neon-pink text-sm font-bold tracking-wide uppercase mb-3">Ideas & Suggestions</p>
 
               <p className="text-gray-300 text-sm leading-relaxed">
-                Your ideas and suggestions are welcome! Even if you want any website and mobile apps for an affordable price, contact us. <div className="text-white font-bold">CodeArcade is here.</div>
-
+                Your ideas and suggestions are welcome! Even if you want any website and mobile apps for an affordable price, contact us.
               </p>
+              <div className="text-white font-bold text-sm mt-1">CodeArcade is here.</div>
+            </div>
+
+            {/* Install Web App Suggestion Banner */}
+            <div className="mb-6 p-3.5 sm:p-4 bg-gradient-to-r from-neon-purple/20 via-black/40 to-neon-pink/20 border border-neon-purple/40 rounded-2xl flex items-center justify-between gap-3 shadow-[0_0_20px_rgba(168,85,247,0.15)] relative z-10">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-xl bg-neon-purple/30 border border-neon-purple/50 flex items-center justify-center shrink-0 shadow-[0_0_10px_rgba(168,85,247,0.4)]">
+                  <Smartphone className="text-neon-pink" size={20} />
+                </div>
+                <div className="text-left">
+                  <h4 className="text-xs sm:text-sm font-bold text-white flex items-center gap-1.5">
+                    Install Neonx App
+                    <span className="text-[10px] bg-neon-pink/30 text-neon-pink px-1.5 py-0.5 rounded font-black uppercase">Free</span>
+                  </h4>
+                  <p className="text-[11px] text-gray-300">Play full-screen with 1-tap instant launch</p>
+                </div>
+              </div>
+
+              {isInstalled || installSuccess ? (
+                <div className="flex items-center gap-1 text-xs text-neon-green font-bold bg-neon-green/10 border border-neon-green/30 px-3 py-1.5 rounded-xl shrink-0">
+                  <Check size={14} /> Installed
+                </div>
+              ) : (
+                <button
+                  type="button"
+                  onClick={handleInstallClick}
+                  className="px-3.5 py-2 bg-neon-purple hover:bg-neon-pink text-white text-xs font-bold rounded-xl shadow-[0_0_15px_rgba(168,85,247,0.4)] hover:shadow-[0_0_20px_rgba(236,72,153,0.6)] transition-all flex items-center gap-1.5 shrink-0 active:scale-95 cursor-pointer"
+                >
+                  <Download size={14} /> Install
+                </button>
+              )}
             </div>
 
             {submitted ? (

@@ -4,6 +4,7 @@ import { DoorClosed, ArrowRight, MessageSquare, ChevronLeft, ChevronRight } from
 import allTasks from '../data/tasks.json';
 import { Creature } from '../components/Creature';
 import { ContactModal } from '../components/ContactModal';
+import { trackPageView, trackGameStart, trackDoorSelect } from '../lib/analytics';
 
 type GameState = 'start' | 'choosing' | 'reveal';
 export type Difficulty = 'easy' | 'crazy' | 'dare' | 'impossible' | 'joker';
@@ -65,9 +66,41 @@ export function Game() {
 
   useEffect(() => {
     setRemainingTasks(shuffleArray(allTasks));
+    trackPageView();
   }, []);
 
+  useEffect(() => {
+    // Set initial history state if not already set
+    if (!window.history.state?.gameState) {
+      window.history.replaceState({ gameState: 'start' }, '');
+    }
+
+    const handlePopState = (event: PopStateEvent) => {
+      // If contact modal is open, close it
+      if (isContactOpen) {
+        setIsContactOpen(false);
+        return;
+      }
+
+      const state = event.state;
+      if (state?.gameState) {
+        setGameState(state.gameState);
+        if (state.gameState === 'choosing' || state.gameState === 'start') {
+          setOpenedDoorNum(null);
+        }
+      } else {
+        setGameState('start');
+        setOpenedDoorNum(null);
+      }
+    };
+
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
+  }, [isContactOpen]);
+
   const startGame = () => {
+    trackGameStart();
+    window.history.pushState({ gameState: 'choosing' }, '');
     setGameState('choosing');
     setOpenedDoorNum(null);
     setMobileDoorIndex(0);
@@ -76,6 +109,7 @@ export function Game() {
   const selectDoor = (num: number) => {
     if (openedDoorNum !== null) return; // Prevent double clicking
 
+    trackDoorSelect(num);
     setOpenedDoorNum(num);
 
     let drawnTask;
@@ -92,13 +126,37 @@ export function Game() {
 
     // Wait for the swing animation to finish before moving to reveal state
     setTimeout(() => {
+      window.history.pushState({ gameState: 'reveal' }, '');
       setGameState('reveal');
     }, 1200);
   };
 
   const nextTask = () => {
+    window.history.pushState({ gameState: 'choosing' }, '');
     setGameState('choosing');
     setOpenedDoorNum(null);
+  };
+
+  const handleBack = () => {
+    if (isContactOpen) {
+      closeContact();
+      return;
+    }
+    window.history.back();
+  };
+
+  const openContact = () => {
+    window.history.pushState({ modal: 'contact', gameState }, '');
+    setIsContactOpen(true);
+  };
+
+  const closeContact = () => {
+    if (isContactOpen) {
+      setIsContactOpen(false);
+      if (window.history.state?.modal === 'contact') {
+        window.history.back();
+      }
+    }
   };
 
   const getStyles = (difficulty: string) => {
@@ -161,13 +219,32 @@ export function Game() {
 
       {/* Header */}
       <header className="fixed top-0 left-0 w-full p-4 sm:p-6 flex justify-between items-center z-50 bg-transparent">
-        <div className="font-bold text-xl tracking-tight text-white flex items-center gap-2 drop-shadow-glow">
-          <DoorClosed className="text-neon-blue" />
-          NEONX DOORS
+        <div className="flex items-center gap-2 sm:gap-3">
+          <AnimatePresence>
+            {gameState !== 'start' && (
+              <motion.button
+                key="header-back"
+                initial={{ opacity: 0, x: -10, scale: 0.9 }}
+                animate={{ opacity: 1, x: 0, scale: 1 }}
+                exit={{ opacity: 0, x: -10, scale: 0.9 }}
+                onClick={handleBack}
+                aria-label="Back"
+                className="bg-black/40 backdrop-blur-md border border-white/20 shadow-[0_0_15px_rgba(255,255,255,0.1)] text-white text-xs sm:text-sm font-bold px-3 py-1.5 sm:px-4 sm:py-2 rounded-full flex items-center gap-1.5 hover:bg-white/10 hover:shadow-[0_0_20px_rgba(255,255,255,0.3)] transition-all cursor-pointer group"
+              >
+                <ChevronLeft size={18} className="text-neon-blue group-hover:-translate-x-0.5 transition-transform" />
+                <span className="inline-block tracking-wide">Back</span>
+              </motion.button>
+            )}
+          </AnimatePresence>
+
+          <div className="font-bold text-lg sm:text-xl tracking-tight text-white flex items-center gap-2 drop-shadow-glow">
+            <DoorClosed className="text-neon-blue" />
+            <span className="hidden sm:inline">NEONX DOORS</span>
+          </div>
         </div>
         
         <button 
-          onClick={() => setIsContactOpen(true)}
+          onClick={openContact}
           className="bg-black/40 backdrop-blur-md border border-white/20 shadow-[0_0_15px_rgba(168,85,247,0.3)] text-white font-bold p-2 sm:px-4 sm:py-2 rounded-full flex items-center gap-2 hover:bg-white/10 hover:shadow-[0_0_20px_rgba(168,85,247,0.5)] transition-all cursor-pointer group"
         >
           <div className="w-8 h-8 rounded-full bg-neon-purple/20 flex items-center justify-center border border-neon-purple/50 group-hover:bg-neon-purple/40 transition-colors">
@@ -418,7 +495,7 @@ export function Game() {
       </AnimatePresence>
 
       <Creature gameState={gameState} activeDifficulty={activeTask?.difficulty} />
-      <ContactModal isOpen={isContactOpen} onClose={() => setIsContactOpen(false)} />
+      <ContactModal isOpen={isContactOpen} onClose={closeContact} />
       
       {/* Footer */}
       <AnimatePresence>
