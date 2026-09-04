@@ -114,7 +114,8 @@
   box-shadow: rgba(236, 72, 153, 0.4) 0px 14px 28px, rgba(236, 72, 153, 0.4) 0px 10px 10px;
 }
 
-.joker-card:hover .joker-wrapper {
+.joker-card:hover .joker-wrapper,
+.joker-card.auto-hover .joker-wrapper {
   transform: perspective(900px) translateY(-5%) rotateX(25deg) translateZ(0);
   box-shadow: 2px 35px 32px -8px rgba(236, 72, 153, 0.75);
 }
@@ -143,11 +144,14 @@
 }
 
 .joker-card:hover .joker-wrapper::before,
-.joker-card:hover .joker-wrapper::after {
+.joker-card.auto-hover .joker-wrapper::before,
+.joker-card:hover .joker-wrapper::after,
+.joker-card.auto-hover .joker-wrapper::after {
   opacity: 1;
 }
 
-.joker-card:hover .joker-wrapper::after {
+.joker-card:hover .joker-wrapper::after,
+.joker-card.auto-hover .joker-wrapper::after {
   height: 120px;
 }
 
@@ -159,11 +163,13 @@
   mix-blend-mode: screen;
 }
 
-.joker-card:hover .joker-logo {
+.joker-card:hover .joker-logo,
+.joker-card.auto-hover .joker-logo {
   transform: translate3d(0%, -50px, 100px);
 }
 
-.joker-card:hover .joker-cover-image {
+.joker-card:hover .joker-cover-image,
+.joker-card.auto-hover .joker-cover-image {
   opacity: 0.3;
 }
 
@@ -178,7 +184,8 @@
   pointer-events: none;
 }
 
-.joker-card:hover .joker-character {
+.joker-card:hover .joker-character,
+.joker-card.auto-hover .joker-character {
   opacity: 1;
   transform: translate3d(0%, -15%, 200px) scale(1.1);
 }

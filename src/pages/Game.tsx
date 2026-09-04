@@ -53,6 +53,15 @@ export function Game() {
   const [openedDoorNum, setOpenedDoorNum] = useState<number | null>(null);
   const [isContactOpen, setIsContactOpen] = useState(false);
   const [mobileDoorIndex, setMobileDoorIndex] = useState(0);
+  const [isAutoHovering, setIsAutoHovering] = useState(false);
+
+  useEffect(() => {
+    if (gameState === 'reveal' && activeTask?.difficulty === 'joker') {
+      setIsAutoHovering(true);
+      const timer = setTimeout(() => setIsAutoHovering(false), 3000);
+      return () => clearTimeout(timer);
+    }
+  }, [gameState, activeTask]);
 
   useEffect(() => {
     setRemainingTasks(shuffleArray(allTasks));
@@ -78,6 +87,7 @@ export function Game() {
       drawnTask = remainingTasks[0];
       setRemainingTasks(prev => prev.slice(1));
     }
+
     setActiveTask(drawnTask);
 
     // Wait for the swing animation to finish before moving to reveal state
@@ -176,7 +186,7 @@ export function Game() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
-            className="w-full max-w-md -mt-10 sm:-mt-24 bg-black/40 backdrop-blur-xl border border-white/10 rounded-[2rem] p-6 sm:p-8 shadow-[0_0_50px_rgba(168,85,247,0.2)] text-center z-10 relative overflow-hidden"
+            className="w-full max-w-md -mt-24 sm:-mt-40 bg-black/40 backdrop-blur-xl border border-white/10 rounded-[2rem] p-6 sm:p-8 shadow-[0_0_50px_rgba(168,85,247,0.2)] text-center z-10 relative overflow-hidden"
           >
             {/* Subtle inner glow for the glass panel */}
             <div className="absolute inset-0 bg-gradient-to-b from-white/5 to-transparent pointer-events-none" />
@@ -206,7 +216,7 @@ export function Game() {
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 1.05 }}
-            className="w-full max-w-4xl text-center z-10 -mt-10 sm:-mt-24"
+            className="w-full max-w-4xl text-center z-10 -mt-24 sm:-mt-40"
           >
             <div className="mb-8 sm:mb-16">
               <h2 className="text-4xl sm:text-5xl font-black text-white drop-shadow-glow">Choose a Door</h2>
@@ -382,7 +392,7 @@ export function Game() {
             className="flex flex-col items-center gap-6 z-10 w-full"
           >
             {/* The 3D Anime Card */}
-            <div className="joker-card mt-8">
+            <div className={`joker-card mt-8 ${isAutoHovering ? 'auto-hover' : ''}`}>
               <div className="joker-wrapper">
                 <img src="/joker_cover.jpg" className="joker-cover-image" alt="Mystical Aura" />
               </div>
@@ -411,11 +421,21 @@ export function Game() {
       <ContactModal isOpen={isContactOpen} onClose={() => setIsContactOpen(false)} />
       
       {/* Footer */}
-      <footer className="fixed bottom-2 w-full text-center z-40 pointer-events-none">
-        <p className="text-[9px] sm:text-[10px] text-gray-500 uppercase tracking-[0.2em] font-bold pointer-events-auto">
-          developed by <a href="https://codearcade20.vercel.app/" target="_blank" rel="noopener noreferrer" className="text-neon-purple hover:text-neon-pink transition-colors drop-shadow-[0_0_5px_rgba(168,85,247,0.5)]">codearcade</a>
-        </p>
-      </footer>
+      <AnimatePresence>
+        {gameState !== 'reveal' && (
+          <motion.footer 
+            key="footer"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed bottom-2 w-full text-center z-40 pointer-events-none"
+          >
+            <p className="text-[9px] sm:text-[10px] text-gray-500 uppercase tracking-[0.2em] font-bold pointer-events-auto">
+              developed by <a href="https://codearcade20.vercel.app/" target="_blank" rel="noopener noreferrer" className="text-neon-purple hover:text-neon-pink transition-colors drop-shadow-[0_0_5px_rgba(168,85,247,0.5)]">codearcade</a>
+            </p>
+          </motion.footer>
+        )}
+      </AnimatePresence>
     </div>
   );
 }

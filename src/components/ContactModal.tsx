@@ -1,6 +1,6 @@
 import { motion, AnimatePresence, useAnimationFrame } from 'framer-motion';
 import { X, Send, User, Mail, Phone, MessageSquare } from 'lucide-react';
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { supabase } from '../lib/supabase';
 
 interface ContactModalProps {
@@ -18,7 +18,26 @@ export const ContactModal = ({ isOpen, onClose }: ContactModalProps) => {
   const chargeRef = useRef(0);
   const isChargingRef = useRef(false);
   const carRef = useRef<HTMLDivElement>(null);
+  const modalRef = useRef<HTMLDivElement>(null);
+  const modalSizeRef = useRef({ w: 0, h: 0 });
   const BASE_SPEED = 5;
+
+  useEffect(() => {
+    if (!isOpen) return;
+    
+    const updateSize = () => {
+      if (modalRef.current) {
+        modalSizeRef.current = {
+          w: modalRef.current.offsetWidth,
+          h: modalRef.current.offsetHeight
+        };
+      }
+    };
+    
+    updateSize();
+    window.addEventListener('resize', updateSize);
+    return () => window.removeEventListener('resize', updateSize);
+  }, [isOpen]);
 
   useAnimationFrame((_, delta) => {
     if (isChargingRef.current) {
@@ -44,15 +63,25 @@ export const ContactModal = ({ isOpen, onClose }: ContactModalProps) => {
       distanceRef.current = (distanceRef.current + currentSpeed * (delta / 1000)) % 100;
     }
     
-    if (carRef.current) {
-      carRef.current.style.offsetDistance = `${distanceRef.current}%`;
-      // Make the car bulge slightly as it charges up
-      if (isChargingRef.current) {
-        const scale = 1 + (chargeRef.current / 80) * 0.6;
-        carRef.current.style.transform = `scale(${scale})`;
+    if (carRef.current && modalSizeRef.current.w > 0) {
+      const { w, h } = modalSizeRef.current;
+      const perimeter = 2 * (w + h);
+      const currentDist = (distanceRef.current / 100) * perimeter;
+      
+      let x = 0, y = 0, rotate = 0;
+      
+      if (currentDist < w) {
+        x = currentDist; y = 0; rotate = 0;
+      } else if (currentDist < w + h) {
+        x = w; y = currentDist - w; rotate = 90;
+      } else if (currentDist < 2 * w + h) {
+        x = w - (currentDist - (w + h)); y = h; rotate = 180;
       } else {
-        carRef.current.style.transform = `scale(1)`;
+        x = 0; y = h - (currentDist - (2 * w + h)); rotate = 270;
       }
+
+      const chargeScale = isChargingRef.current ? 1 + (chargeRef.current / 80) * 0.6 : 1;
+      carRef.current.style.transform = `translate(${x}px, ${y}px) translate(-50%, -50%) rotate(${rotate}deg) scaleX(-1) scale(${chargeScale})`;
     }
   });
   
@@ -109,27 +138,28 @@ export const ContactModal = ({ isOpen, onClose }: ContactModalProps) => {
 
   return (
     <AnimatePresence>
-      {isOpen && (
-        <>
+      {isOpen && [
+        <motion.div
+          key="contact-backdrop"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          onClick={onClose}
+          className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[100]"
+        />,
+        <div key="contact-modal-wrapper" className="fixed inset-0 z-[101] flex items-center justify-center p-4 pointer-events-none">
           <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            onClick={onClose}
-            className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[100]"
-          />
-          <div className="fixed inset-0 z-[101] flex items-center justify-center p-4 pointer-events-none">
-            <motion.div
-              initial={{ opacity: 0, scale: 0.95, y: 20 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.95, y: 20 }}
-              className="w-full max-w-lg bg-[#150a10] border border-neon-purple shadow-[0_0_50px_rgba(168,85,247,0.3)] rounded-3xl p-6 sm:p-8 pointer-events-auto relative"
-            >
+            ref={modalRef}
+            initial={{ opacity: 0, scale: 0.95, y: 20 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.95, y: 20 }}
+            className="w-full max-w-lg bg-[#150a10] border border-neon-purple shadow-[0_0_50px_rgba(168,85,247,0.3)] rounded-3xl p-6 sm:p-8 pointer-events-auto relative"
+          >
             
             {/* The Tiny Racing Car */}
             <div 
               ref={carRef}
-              className="absolute top-0 left-0 text-3xl pointer-events-auto z-[102] -ml-4 -mt-4 drop-shadow-[0_0_10px_rgba(255,255,255,0.8)] cursor-pointer select-none"
+              className="absolute top-0 left-0 text-3xl pointer-events-auto z-[102] drop-shadow-[0_0_10px_rgba(255,255,255,0.8)] cursor-pointer select-none"
               onPointerDown={(e) => {
                 e.stopPropagation();
                 if (e.currentTarget) {
@@ -147,9 +177,6 @@ export const ContactModal = ({ isOpen, onClose }: ContactModalProps) => {
                 isChargingRef.current = false;
               }}
               style={{
-                offsetPath: 'inset(0px round 24px)',
-                offsetDistance: '0%',
-                offsetRotate: 'auto 90deg',
                 touchAction: 'none'
               }}
             >
@@ -250,9 +277,8 @@ export const ContactModal = ({ isOpen, onClose }: ContactModalProps) => {
               </form>
             )}
           </motion.div>
-          </div>
-        </>
-      )}
+        </div>
+      ]}
     </AnimatePresence>
   );
 };
