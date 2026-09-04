@@ -249,17 +249,17 @@ export const ContactModal = ({ isOpen, onClose }: ContactModalProps) => {
             {/* Install Web App Suggestion Banner */}
             <div className="mb-6 p-3.5 sm:p-4 bg-gradient-to-r from-neon-purple/20 via-black/40 to-neon-pink/20 border border-neon-purple/40 rounded-2xl flex items-center justify-between gap-3 shadow-[0_0_20px_rgba(168,85,247,0.15)] relative z-10">
               <div className="flex items-center gap-3">
-                <img 
-                  src="/app_logo.jpg" 
-                  alt="Neonx App Logo" 
-                  className="w-11 h-11 rounded-xl object-cover border border-neon-purple/60 shadow-[0_0_12px_rgba(168,85,247,0.5)] shrink-0" 
+                <img
+                  src="/app_logo.jpg"
+                  alt="Neonx App Logo"
+                  className="w-11 h-11 rounded-xl object-cover border border-neon-purple/60 shadow-[0_0_12px_rgba(168,85,247,0.5)] shrink-0"
                 />
                 <div className="text-left">
                   <h4 className="text-xs sm:text-sm font-bold text-white flex items-center gap-1.5">
                     Install Neonx App
                     <span className="text-[10px] bg-neon-pink/30 text-neon-pink px-1.5 py-0.5 rounded font-black uppercase">Free</span>
                   </h4>
-                  <p className="text-[11px] text-gray-300">Play full-screen with 1-tap instant launch</p>
+                  <p className="text-[11px] text-gray-300"> 1-tap instant launch</p>
                 </div>
               </div>
 
