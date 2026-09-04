@@ -11,7 +11,7 @@ interface ContactModalProps {
 export const ContactModal = ({ isOpen, onClose }: ContactModalProps) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
-  
+
   // Tiny Racing State
   const distanceRef = useRef(0);
   const boostRef = useRef(0);
@@ -24,7 +24,7 @@ export const ContactModal = ({ isOpen, onClose }: ContactModalProps) => {
 
   useEffect(() => {
     if (!isOpen) return;
-    
+
     const updateSize = () => {
       if (modalRef.current) {
         modalSizeRef.current = {
@@ -33,7 +33,7 @@ export const ContactModal = ({ isOpen, onClose }: ContactModalProps) => {
         };
       }
     };
-    
+
     updateSize();
     window.addEventListener('resize', updateSize);
     return () => window.removeEventListener('resize', updateSize);
@@ -43,7 +43,7 @@ export const ContactModal = ({ isOpen, onClose }: ContactModalProps) => {
     if (isChargingRef.current) {
       // Accumulate charge while holding (max charge caps out)
       chargeRef.current = Math.min(chargeRef.current + delta * 0.08, 80);
-      
+
       // Car creeps forward slowly while charging
       const currentSpeed = BASE_SPEED * 0.2;
       distanceRef.current = (distanceRef.current + currentSpeed * (delta / 1000)) % 100;
@@ -53,23 +53,23 @@ export const ContactModal = ({ isOpen, onClose }: ContactModalProps) => {
         boostRef.current = chargeRef.current;
         chargeRef.current = 0;
       }
-      
+
       // Decay the boost speed back to 0 over roughly 3 seconds
       if (boostRef.current > 0) {
         boostRef.current = Math.max(boostRef.current - delta * 0.03, 0);
       }
-      
+
       const currentSpeed = BASE_SPEED + boostRef.current;
       distanceRef.current = (distanceRef.current + currentSpeed * (delta / 1000)) % 100;
     }
-    
+
     if (carRef.current && modalSizeRef.current.w > 0) {
       const { w, h } = modalSizeRef.current;
       const perimeter = 2 * (w + h);
       const currentDist = (distanceRef.current / 100) * perimeter;
-      
+
       let x = 0, y = 0, rotate = 0;
-      
+
       if (currentDist < w) {
         x = currentDist; y = 0; rotate = 0;
       } else if (currentDist < w + h) {
@@ -84,7 +84,7 @@ export const ContactModal = ({ isOpen, onClose }: ContactModalProps) => {
       carRef.current.style.transform = `translate(${x}px, ${y}px) translate(-50%, -50%) rotate(${rotate}deg) scaleX(-1) scale(${chargeScale})`;
     }
   });
-  
+
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -100,19 +100,19 @@ export const ContactModal = ({ isOpen, onClose }: ContactModalProps) => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    
+
     try {
       const { error } = await supabase
         .from('enquiries')
         .insert([
-          { 
-            name: formData.name, 
-            email: formData.email, 
-            mobile: formData.mobile || null, 
-            message: formData.message 
+          {
+            name: formData.name,
+            email: formData.email,
+            mobile: formData.mobile || null,
+            message: formData.message
           }
         ]);
-        
+
       if (error) {
         console.error('Error submitting form:', error);
         alert('Failed to send message. Please try again.');
@@ -122,14 +122,14 @@ export const ContactModal = ({ isOpen, onClose }: ContactModalProps) => {
 
       setIsSubmitting(false);
       setSubmitted(true);
-      
+
       // Reset form and close modal
       setTimeout(() => {
         setSubmitted(false);
         setFormData({ name: '', email: '', mobile: '', message: '' });
         onClose();
       }, 2000);
-      
+
     } catch (err) {
       console.error('Unexpected error:', err);
       setIsSubmitting(false);
@@ -155,21 +155,21 @@ export const ContactModal = ({ isOpen, onClose }: ContactModalProps) => {
             exit={{ opacity: 0, scale: 0.95, y: 20 }}
             className="w-full max-w-lg bg-[#150a10] border border-neon-purple shadow-[0_0_50px_rgba(168,85,247,0.3)] rounded-3xl p-6 sm:p-8 pointer-events-auto relative"
           >
-            
+
             {/* The Tiny Racing Car */}
-            <div 
+            <div
               ref={carRef}
               className="absolute top-0 left-0 text-3xl pointer-events-auto z-[102] drop-shadow-[0_0_10px_rgba(255,255,255,0.8)] cursor-pointer select-none"
               onPointerDown={(e) => {
                 e.stopPropagation();
                 if (e.currentTarget) {
-                   e.currentTarget.setPointerCapture(e.pointerId);
+                  e.currentTarget.setPointerCapture(e.pointerId);
                 }
                 isChargingRef.current = true;
               }}
               onPointerUp={(e) => {
                 if (e.currentTarget) {
-                   e.currentTarget.releasePointerCapture(e.pointerId);
+                  e.currentTarget.releasePointerCapture(e.pointerId);
                 }
                 isChargingRef.current = false;
               }}
@@ -196,9 +196,10 @@ export const ContactModal = ({ isOpen, onClose }: ContactModalProps) => {
             <div className="text-center mb-8 relative z-10 pointer-events-none">
               <h2 className="text-3xl font-black text-white drop-shadow-glow mb-2">CodeArcade</h2>
               <p className="text-neon-pink text-sm font-bold tracking-wide uppercase mb-4">Ideas & Suggestions</p>
-              
+
               <p className="text-gray-300 text-sm leading-relaxed">
-                Your ideas and suggestions are welcome! Even if you want any website and mobile apps for an affordable price, contact us. <span className="text-white font-bold">CodeArcade is here.</span>
+                Your ideas and suggestions are welcome! Even if you want any website and mobile apps for an affordable price, contact us. <div className="text-white font-bold">CodeArcade is here.</div>
+
               </p>
             </div>
 
