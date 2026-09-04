@@ -20,7 +20,7 @@ export const ContactModal = ({ isOpen, onClose }: ContactModalProps) => {
   const carRef = useRef<HTMLDivElement>(null);
   const BASE_SPEED = 5;
 
-  useAnimationFrame((time, delta) => {
+  useAnimationFrame((_, delta) => {
     if (isChargingRef.current) {
       // Accumulate charge while holding (max charge caps out)
       chargeRef.current = Math.min(chargeRef.current + delta * 0.08, 80);

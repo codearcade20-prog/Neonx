@@ -113,7 +113,7 @@ const AdminLogin = () => {
   );
 };
 
-const AdminDashboard = ({ session }: { session: Session }) => {
+const AdminDashboard = ({}: { session: Session }) => {
   const [enquiries, setEnquiries] = useState<Enquiry[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -122,7 +122,7 @@ const AdminDashboard = ({ session }: { session: Session }) => {
   }, []);
 
   const fetchEnquiries = async () => {
-    const { data, error } = await supabase
+    const { data } = await supabase
       .from('enquiries')
       .select('*')
       .order('created_at', { ascending: false });
