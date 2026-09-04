@@ -1,0 +1,184 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-game-bg text-white antialiased font-sans overflow-hidden;
+  }
+  ::selection {
+    background-color: #3b82f6;
+    color: white;
+  }
+}
+
+/* Global utility for hiding scrollbar but allowing scroll */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* 3D Perspective Utility */
+.perspective-container {
+  perspective: 1200px;
+}
+.preserve-3d {
+  transform-style: preserve-3d;
+}
+
+/* Floating Particles */
+.particles-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.particle {
+  position: absolute;
+  background: white;
+  border-radius: 50%;
+  animation: float-particle linear infinite;
+}
+
+@keyframes float-particle {
+  0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
+}
+
+/* Stage Floor Radial Glow */
+.stage-glow {
+  position: absolute;
+  bottom: -20vh;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 150vw;
+  height: 40vh;
+  background: radial-gradient(ellipse at center, rgba(255, 255, 255, 0.05) 0%, rgba(15, 23, 42, 0) 70%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Glitch Effect */
+@keyframes glitch {
+  0% { transform: translate(0) }
+  20% { transform: translate(-2px, 2px) skewX(2deg) }
+  40% { transform: translate(-2px, -2px) skewX(-2deg) }
+  60% { transform: translate(2px, 2px) skewX(1deg) }
+  80% { transform: translate(2px, -2px) skewX(-1deg) }
+  100% { transform: translate(0) }
+}
+.animate-glitch {
+  animation: glitch 0.3s cubic-bezier(.25, .46, .45, .94) infinite both;
+}
+
+/* --- 3D Anime Joker Card Styles --- */
+.joker-card {
+  width: 300px;
+  height: 455px;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 36px;
+  perspective: 2500px;
+  cursor: pointer;
+  border-radius: 30px;
+}
+
+.joker-cover-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 30px;
+  transition: opacity 0.5s;
+}
+
+.joker-wrapper {
+  transition: all 0.5s;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  background: #000;
+  border-radius: 30px;
+  box-shadow: rgba(236, 72, 153, 0.4) 0px 14px 28px, rgba(236, 72, 153, 0.4) 0px 10px 10px;
+}
+
+.joker-card:hover .joker-wrapper {
+  transform: perspective(900px) translateY(-5%) rotateX(25deg) translateZ(0);
+  box-shadow: 2px 35px 32px -8px rgba(236, 72, 153, 0.75);
+}
+
+.joker-wrapper::before,
+.joker-wrapper::after {
+  content: "";
+  opacity: 0;
+  width: 100%;
+  height: 80px;
+  transition: all 0.5s;
+  border-radius: 30px;
+  position: absolute;
+  left: 0;
+}
+.joker-wrapper::before {
+  top: 0;
+  height: 100%;
+  background-image: linear-gradient(to top,transparent 46%,rgba(12, 13, 19, 0.5) 68%,rgba(12, 13, 19) 97%);
+}
+
+.joker-wrapper::after {
+  bottom: 0;
+  opacity: 1;
+  background-image: linear-gradient(to bottom,transparent 46%,rgba(12, 13, 19, 0.5) 68%,rgba(12, 13, 19) 97%);
+}
+
+.joker-card:hover .joker-wrapper::before,
+.joker-card:hover .joker-wrapper::after {
+  opacity: 1;
+}
+
+.joker-card:hover .joker-wrapper::after {
+  height: 120px;
+}
+
+.joker-logo {
+  width: 80%;
+  transition: transform 0.5s;
+  position: absolute;
+  bottom: 40px;
+  mix-blend-mode: screen;
+}
+
+.joker-card:hover .joker-logo {
+  transform: translate3d(0%, -50px, 100px);
+}
+
+.joker-card:hover .joker-cover-image {
+  opacity: 0.3;
+}
+
+.joker-character {
+  width: 150%;
+  opacity: 0;
+  transition: all 0.5s;
+  filter: drop-shadow(0px 0px 20px #ec4899);
+  position: absolute;
+  z-index: -1;
+  mix-blend-mode: screen; /* Removes black background */
+  pointer-events: none;
+}
+
+.joker-card:hover .joker-character {
+  opacity: 1;
+  transform: translate3d(0%, -15%, 200px) scale(1.1);
+}

@@ -1,0 +1,609 @@
+[
+  {
+    "id": 1,
+    "difficulty": "easy",
+    "content": "Give a genuine compliment to the person on your right.",
+    "points": 10
+  },
+  {
+    "id": 2,
+    "difficulty": "crazy",
+    "content": "Dance without music for 15 seconds.",
+    "points": 30
+  },
+  {
+    "id": 3,
+    "difficulty": "dare",
+    "content": "Act like your manager/teacher for 30 seconds.",
+    "points": 50
+  },
+  {
+    "id": 4,
+    "difficulty": "impossible",
+    "content": "Give a 30-second convincing speech on 'Why I'm the CEO'.",
+    "points": 100
+  },
+  {
+    "id": 5,
+    "difficulty": "easy",
+    "content": "Name 5 fruits in 10 seconds.",
+    "points": 10
+  },
+  {
+    "id": 6,
+    "difficulty": "crazy",
+    "content": "Take the funniest group selfie and show it.",
+    "points": 30
+  },
+  {
+    "id": 7,
+    "difficulty": "dare",
+    "content": "Sing a song loudly for 20 seconds.",
+    "points": 50
+  },
+  {
+    "id": 8,
+    "difficulty": "impossible",
+    "content": "Hold a plank for 1 minute while telling a joke.",
+    "points": 100
+  },
+  {
+    "id": 9,
+    "difficulty": "easy",
+    "content": "Do 10 jumping jacks.",
+    "points": 10
+  },
+  {
+    "id": 10,
+    "difficulty": "crazy",
+    "content": "Act like a monkey until someone gives you a high five.",
+    "points": 30
+  },
+  {
+    "id": 11,
+    "difficulty": "dare",
+    "content": "Let the person to your left send a text from your phone.",
+    "points": 50
+  },
+  {
+    "id": 12,
+    "difficulty": "impossible",
+    "content": "Recite a poem you make up on the spot.",
+    "points": 100
+  },
+  {
+    "id": 13,
+    "difficulty": "easy",
+    "content": "High five the person across from you.",
+    "points": 10
+  },
+  {
+    "id": 14,
+    "difficulty": "crazy",
+    "content": "Speak in a fake accent for the next 3 rounds.",
+    "points": 30
+  },
+  {
+    "id": 15,
+    "difficulty": "dare",
+    "content": "Call a friend and tell them you love them.",
+    "points": 50
+  },
+  {
+    "id": 16,
+    "difficulty": "impossible",
+    "content": "Do 20 burpees in one go.",
+    "points": 100
+  },
+  {
+    "id": 17,
+    "difficulty": "easy",
+    "content": "Spin around 3 times.",
+    "points": 10
+  },
+  {
+    "id": 18,
+    "difficulty": "crazy",
+    "content": "Pretend you are an airplane for 20 seconds.",
+    "points": 30
+  },
+  {
+    "id": 19,
+    "difficulty": "dare",
+    "content": "Do 10 pushups.",
+    "points": 50
+  },
+  {
+    "id": 20,
+    "difficulty": "impossible",
+    "content": "Convince the group that you are actually a time traveler.",
+    "points": 100
+  },
+  {
+    "id": 21,
+    "difficulty": "easy",
+    "content": "Say the alphabet backward from Z to T.",
+    "points": 10
+  },
+  {
+    "id": 22,
+    "difficulty": "crazy",
+    "content": "Walk backward around the room once.",
+    "points": 30
+  },
+  {
+    "id": 23,
+    "difficulty": "dare",
+    "content": "Hold a wall sit for 30 seconds.",
+    "points": 50
+  },
+  {
+    "id": 24,
+    "difficulty": "impossible",
+    "content": "Do a handstand or attempt one for 10 seconds.",
+    "points": 100
+  },
+  {
+    "id": 25,
+    "difficulty": "easy",
+    "content": "Name 3 colors that start with the letter B.",
+    "points": 10
+  },
+  {
+    "id": 26,
+    "difficulty": "crazy",
+    "content": "Talk without opening your mouth for your next turn.",
+    "points": 30
+  },
+  {
+    "id": 27,
+    "difficulty": "dare",
+    "content": "Let someone draw on your hand with a pen.",
+    "points": 50
+  },
+  {
+    "id": 28,
+    "difficulty": "impossible",
+    "content": "Pitch a terrible business idea convincingly.",
+    "points": 100
+  },
+  {
+    "id": 29,
+    "difficulty": "easy",
+    "content": "Touch your toes for 10 seconds.",
+    "points": 10
+  },
+  {
+    "id": 30,
+    "difficulty": "crazy",
+    "content": "Try to juggle 3 invisible items.",
+    "points": 30
+  },
+  {
+    "id": 31,
+    "difficulty": "dare",
+    "content": "Post a silly photo on your social media story.",
+    "points": 50
+  },
+  {
+    "id": 32,
+    "difficulty": "impossible",
+    "content": "Sing a high note and hold it for 15 seconds.",
+    "points": 100
+  },
+  {
+    "id": 33,
+    "difficulty": "easy",
+    "content": "Hum your favorite song.",
+    "points": 10
+  },
+  {
+    "id": 34,
+    "difficulty": "crazy",
+    "content": "Act like a robot.",
+    "points": 30
+  },
+  {
+    "id": 35,
+    "difficulty": "dare",
+    "content": "Eat a spoonful of hot sauce or something spicy.",
+    "points": 50
+  },
+  {
+    "id": 36,
+    "difficulty": "impossible",
+    "content": "Perform a dramatic monologue from a movie.",
+    "points": 100
+  },
+  {
+    "id": 37,
+    "difficulty": "easy",
+    "content": "Make a funny face.",
+    "points": 10
+  },
+  {
+    "id": 38,
+    "difficulty": "crazy",
+    "content": "Meow like a cat.",
+    "points": 30
+  },
+  {
+    "id": 39,
+    "difficulty": "dare",
+    "content": "Do your best impression of a famous celebrity.",
+    "points": 50
+  },
+  {
+    "id": 40,
+    "difficulty": "impossible",
+    "content": "Stay completely silent for the next 5 rounds.",
+    "points": 100
+  },
+  {
+    "id": 41,
+    "difficulty": "easy",
+    "content": "Give a genuine compliment to the person on your right.",
+    "points": 10
+  },
+  {
+    "id": 42,
+    "difficulty": "crazy",
+    "content": "Dance without music for 15 seconds.",
+    "points": 30
+  },
+  {
+    "id": 43,
+    "difficulty": "dare",
+    "content": "Act like your manager/teacher for 30 seconds.",
+    "points": 50
+  },
+  {
+    "id": 44,
+    "difficulty": "impossible",
+    "content": "Give a 30-second convincing speech on 'Why I'm the CEO'.",
+    "points": 100
+  },
+  {
+    "id": 45,
+    "difficulty": "easy",
+    "content": "Name 5 fruits in 10 seconds.",
+    "points": 10
+  },
+  {
+    "id": 46,
+    "difficulty": "crazy",
+    "content": "Take the funniest group selfie and show it.",
+    "points": 30
+  },
+  {
+    "id": 47,
+    "difficulty": "dare",
+    "content": "Sing a song loudly for 20 seconds.",
+    "points": 50
+  },
+  {
+    "id": 48,
+    "difficulty": "impossible",
+    "content": "Hold a plank for 1 minute while telling a joke.",
+    "points": 100
+  },
+  {
+    "id": 49,
+    "difficulty": "easy",
+    "content": "Do 10 jumping jacks.",
+    "points": 10
+  },
+  {
+    "id": 50,
+    "difficulty": "crazy",
+    "content": "Act like a monkey until someone gives you a high five.",
+    "points": 30
+  },
+  {
+    "id": 51,
+    "difficulty": "dare",
+    "content": "Let the person to your left send a text from your phone.",
+    "points": 50
+  },
+  {
+    "id": 52,
+    "difficulty": "impossible",
+    "content": "Recite a poem you make up on the spot.",
+    "points": 100
+  },
+  {
+    "id": 53,
+    "difficulty": "easy",
+    "content": "High five the person across from you.",
+    "points": 10
+  },
+  {
+    "id": 54,
+    "difficulty": "crazy",
+    "content": "Speak in a fake accent for the next 3 rounds.",
+    "points": 30
+  },
+  {
+    "id": 55,
+    "difficulty": "dare",
+    "content": "Call a friend and tell them you love them.",
+    "points": 50
+  },
+  {
+    "id": 56,
+    "difficulty": "impossible",
+    "content": "Do 20 burpees in one go.",
+    "points": 100
+  },
+  {
+    "id": 57,
+    "difficulty": "easy",
+    "content": "Spin around 3 times.",
+    "points": 10
+  },
+  {
+    "id": 58,
+    "difficulty": "crazy",
+    "content": "Pretend you are an airplane for 20 seconds.",
+    "points": 30
+  },
+  {
+    "id": 59,
+    "difficulty": "dare",
+    "content": "Do 10 pushups.",
+    "points": 50
+  },
+  {
+    "id": 60,
+    "difficulty": "impossible",
+    "content": "Convince the group that you are actually a time traveler.",
+    "points": 100
+  },
+  {
+    "id": 61,
+    "difficulty": "easy",
+    "content": "Say the alphabet backward from Z to T.",
+    "points": 10
+  },
+  {
+    "id": 62,
+    "difficulty": "crazy",
+    "content": "Walk backward around the room once.",
+    "points": 30
+  },
+  {
+    "id": 63,
+    "difficulty": "dare",
+    "content": "Hold a wall sit for 30 seconds.",
+    "points": 50
+  },
+  {
+    "id": 64,
+    "difficulty": "impossible",
+    "content": "Do a handstand or attempt one for 10 seconds.",
+    "points": 100
+  },
+  {
+    "id": 65,
+    "difficulty": "easy",
+    "content": "Name 3 colors that start with the letter B.",
+    "points": 10
+  },
+  {
+    "id": 66,
+    "difficulty": "crazy",
+    "content": "Talk without opening your mouth for your next turn.",
+    "points": 30
+  },
+  {
+    "id": 67,
+    "difficulty": "dare",
+    "content": "Let someone draw on your hand with a pen.",
+    "points": 50
+  },
+  {
+    "id": 68,
+    "difficulty": "impossible",
+    "content": "Pitch a terrible business idea convincingly.",
+    "points": 100
+  },
+  {
+    "id": 69,
+    "difficulty": "easy",
+    "content": "Touch your toes for 10 seconds.",
+    "points": 10
+  },
+  {
+    "id": 70,
+    "difficulty": "crazy",
+    "content": "Try to juggle 3 invisible items.",
+    "points": 30
+  },
+  {
+    "id": 71,
+    "difficulty": "dare",
+    "content": "Post a silly photo on your social media story.",
+    "points": 50
+  },
+  {
+    "id": 72,
+    "difficulty": "impossible",
+    "content": "Sing a high note and hold it for 15 seconds.",
+    "points": 100
+  },
+  {
+    "id": 73,
+    "difficulty": "easy",
+    "content": "Hum your favorite song.",
+    "points": 10
+  },
+  {
+    "id": 74,
+    "difficulty": "crazy",
+    "content": "Act like a robot.",
+    "points": 30
+  },
+  {
+    "id": 75,
+    "difficulty": "dare",
+    "content": "Eat a spoonful of hot sauce or something spicy.",
+    "points": 50
+  },
+  {
+    "id": 76,
+    "difficulty": "impossible",
+    "content": "Perform a dramatic monologue from a movie.",
+    "points": 100
+  },
+  {
+    "id": 77,
+    "difficulty": "easy",
+    "content": "Make a funny face.",
+    "points": 10
+  },
+  {
+    "id": 78,
+    "difficulty": "crazy",
+    "content": "Meow like a cat.",
+    "points": 30
+  },
+  {
+    "id": 79,
+    "difficulty": "dare",
+    "content": "Do your best impression of a famous celebrity.",
+    "points": 50
+  },
+  {
+    "id": 80,
+    "difficulty": "impossible",
+    "content": "Stay completely silent for the next 5 rounds.",
+    "points": 100
+  },
+  {
+    "id": 81,
+    "difficulty": "easy",
+    "content": "Give a genuine compliment to the person on your right.",
+    "points": 10
+  },
+  {
+    "id": 82,
+    "difficulty": "crazy",
+    "content": "Dance without music for 15 seconds.",
+    "points": 30
+  },
+  {
+    "id": 83,
+    "difficulty": "dare",
+    "content": "Act like your manager/teacher for 30 seconds.",
+    "points": 50
+  },
+  {
+    "id": 84,
+    "difficulty": "impossible",
+    "content": "Give a 30-second convincing speech on 'Why I'm the CEO'.",
+    "points": 100
+  },
+  {
+    "id": 85,
+    "difficulty": "easy",
+    "content": "Name 5 fruits in 10 seconds.",
+    "points": 10
+  },
+  {
+    "id": 86,
+    "difficulty": "crazy",
+    "content": "Take the funniest group selfie and show it.",
+    "points": 30
+  },
+  {
+    "id": 87,
+    "difficulty": "dare",
+    "content": "Sing a song loudly for 20 seconds.",
+    "points": 50
+  },
+  {
+    "id": 88,
+    "difficulty": "impossible",
+    "content": "Hold a plank for 1 minute while telling a joke.",
+    "points": 100
+  },
+  {
+    "id": 89,
+    "difficulty": "easy",
+    "content": "Do 10 jumping jacks.",
+    "points": 10
+  },
+  {
+    "id": 90,
+    "difficulty": "crazy",
+    "content": "Act like a monkey until someone gives you a high five.",
+    "points": 30
+  },
+  {
+    "id": 91,
+    "difficulty": "dare",
+    "content": "Let the person to your left send a text from your phone.",
+    "points": 50
+  },
+  {
+    "id": 92,
+    "difficulty": "impossible",
+    "content": "Recite a poem you make up on the spot.",
+    "points": 100
+  },
+  {
+    "id": 93,
+    "difficulty": "easy",
+    "content": "High five the person across from you.",
+    "points": 10
+  },
+  {
+    "id": 94,
+    "difficulty": "crazy",
+    "content": "Speak in a fake accent for the next 3 rounds.",
+    "points": 30
+  },
+  {
+    "id": 95,
+    "difficulty": "dare",
+    "content": "Call a friend and tell them you love them.",
+    "points": 50
+  },
+  {
+    "id": 96,
+    "difficulty": "impossible",
+    "content": "Do 20 burpees in one go.",
+    "points": 100
+  },
+  {
+    "id": 97,
+    "difficulty": "easy",
+    "content": "Spin around 3 times.",
+    "points": 10
+  },
+  {
+    "id": 98,
+    "difficulty": "crazy",
+    "content": "Pretend you are an airplane for 20 seconds.",
+    "points": 30
+  },
+  {
+    "id": 99,
+    "difficulty": "dare",
+    "content": "Do 10 pushups.",
+    "points": 50
+  },
+  {
+    "id": 100,
+    "difficulty": "impossible",
+    "content": "Convince the group that you are actually a time traveler.",
+    "points": 100
+  },
+  { "id": 101, "difficulty": "joker", "content": "🃏 WILDCARD: Recreate a famous movie scene using only gestures.", "points": 0 },
+  { "id": 102, "difficulty": "joker", "content": "🃏 WILDCARD: Choose someone and make them your 'personal assistant' for 1 minute.", "points": 0 },
+  { "id": 103, "difficulty": "joker", "content": "🃏 WILDCARD: Make the person opposite you laugh without speaking.", "points": 0 },
+  { "id": 104, "difficulty": "joker", "content": "🃏 WILDCARD: Dance like nobody can see you for 15 seconds.", "points": 0 },
+  { "id": 105, "difficulty": "joker", "content": "🃏 WILDCARD: Predict someone's future in the most ridiculous way.", "points": 0 },
+  { "id": 106, "difficulty": "joker", "content": "🃏 WILDCARD: Interview a chair as if it's a celebrity.", "points": 0 },
+  { "id": 107, "difficulty": "joker", "content": "🃏 WILDCARD: Swap personalities with another player for one round.", "points": 0 }
+]
