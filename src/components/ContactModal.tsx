@@ -196,7 +196,7 @@ export const ContactModal = ({ isOpen, onClose }: ContactModalProps) => {
             initial={{ opacity: 0, scale: 0.95, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: 20 }}
-            className="w-full max-w-lg bg-[#150a10] border border-neon-purple shadow-[0_0_50px_rgba(168,85,247,0.3)] rounded-3xl p-6 sm:p-8 pointer-events-auto relative"
+            className="w-full max-w-lg bg-[#150a10] border border-neon-purple shadow-[0_0_50px_rgba(168,85,247,0.3)] rounded-3xl p-5 sm:p-8 pointer-events-auto relative max-h-[90dvh] overflow-y-auto"
           >
 
             {/* The Tiny Racing Car */}
